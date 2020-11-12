@@ -36,25 +36,42 @@
 </head>
 <?php
 //verbinding
-$host = "localhost";
-$databasename = "nerdygadgets";
-$user = "root";
-$pass = "";
-$port = 3306;
-$connection = mysqli_connect($host, $user, $pass, $databasename, $port);
-include "welkom.php";
 include "connect.php";
-$host = "localhost";
-$databasename = "nerdygadgets";
-$user = "root";
-$pass = "";
-$port = 3306;
-$connection = mysqli_connect($host, $user, $pass, $databasename, $port);
+//waardes klant
+//sql
+
 ?>
 <body>
 <!-- bestellingscode-->
+<?php
 
-<form method="post" action="checkout-bezoeker.php">
+?>
+
+
+<form method="post" action="betaald.php">
+    <TABLE >
+        <TR> <TD><label for="voornaam">Voornaam:</label></TD>
+            <TD><input type="text" placeholder="Voornaam" size="20" maxlength="40" name="voornaam"><br></TD>
+            <TD><label for="gebdatum">Gebdatum:</label></TD>
+            <TD><input type="date" placeholder="Geboortedatum" required size="20" maxlength="40" name="gebdatum"></TD> </TR>
+        <TR> <TD><label for="achternaam">Achternaam:</label></TD>
+            <TD><input type="text" placeholder="Achternaam" required size="20" maxlength="40" name="achternaam"><br></TD>
+            <TD><label for="email">E-mail:</label></TD>
+            <TD><input type="text" placeholder="Email" required size="20" maxlength="40" name="email"></TD> </TR>
+        <TR> <TD><label for="tussenvoegsel">Tussenvoegsel:</label></TD>
+            <TD><input type="text" placeholder="Tussenvoegsel" required size="20" maxlength="5" name="tussenvoegsel"><br></TD>
+            <TD><label for="telefoonummer">Telefoon-nummer:</label></TD>
+            <TD><input type="text" placeholder="Telefoon-nummer" required size="20" maxlength="11" name="telefoonnmr"></TD>
+        <TR><TD><label for="geslacht">geslacht:</label></TD><br>
+            <TD><br>Man: <input type="radio" size="10" name="geslacht" value="Man">
+                <br>Vrouw: <input type="radio" size="10" name="geslacht" value="Vrouw">
+                <br> Anders: <input type="radio" size="10" name="geslacht" value="Anders">
+                <br>
+            </TD>
+        </TR>
+
+    </TABLE>
+    <BR><BR><BR>
     <TABLE>
         <TR> <TD><label for="Straatnaam">Straatnaam:</label></TD> <TD><input type="text" placeholder="Straatnaam" required size="20" maxlength="40" name="Straatnaam"></TD>  </TR>
         <TR> <TD><label for="huisnnummer">Huisnnummer:</label></TD> <TD><input type="text" placeholder="huisnnummer" required size="9" maxlength="4" name="huisnnummer"><input type="text" size="5" maxlength="1"  name="toevoeging" placeholder="toevoeging"></TD></TR>
@@ -68,36 +85,24 @@ $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
     <TABLE>
         <TR> <TD><label for="wachtwoord">Wachtwoord:</label></TD> <TD><input type="password" required size="20" maxlength="40" name="wachtwoord"></TD> </TR>
         <TR> <TD><label for="wachtwoord">Wachtwoord verificatie:</label></TD> <TD><input type="password" required size="20" maxlength="40" name="wachtwoord"> </TD></TR>
+
+
     </TABLE>
     <br>
-    <label for="Nieuwsbrief">Wilt U zich aanmelden voor onze Nieuwsbrief:</label>
+    <label for="Nieuwsbrief">Wilt U zich aan melden voor onze Nieuwsbrief:</label>
     <input type="checkbox"  size="20" name="Nieuwsbrief"><br>
 
     <label for="voorwaarde"><a href="gebruiksvoorwarde.php">Accepeert u onze algemene voorwaarde*:</label></a>
     <input type="checkbox" required size="20" name="termsofservice"><br>
     <br>
-</form>
+
+
 <?php
-if(isset($_POST["Betaal"])){
-    $sql = "INSERT INTO gegevens (klantnr, geslacht, voornaam, tussenvoegsel, achternaam, gbdatum, E-mail, telefoonnr, straat, huisnummer, postcode, plaats, land, wachtwoord, nieuwsbrief, factuuradres) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    $statement = mysqli_prepare($connection, "INSERT INTO klant (klantnr, geslacht, voornaam, tussenvoegsel, achternaam, gbdatum, E-mail, telefoonnr, straat, huisnummer, postcode, plaats, land, wachtwoord, nieuwsbrief, factuuradres) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-    $statement = mysqli_prepare($connection, $sql);
-    mysqli_stmt_bind_param($statement, 'issssdsisissssbb', $klantnr, $geslacht, $voornaam, $tussenvoegsel, $achternaam, $gbdatum, $Email, $telefoonnummer, $straat, $huisnummer, $postcode, $plaats, $land, $wachtwoord, $nieuwsbrief, $factuuradres);
-    mysqli_stmt_execute($statement);
-
-
-    $result = mysqli_stmt_get_result($statement);
-    mysqli_close($connection);
-}
 ?>
 <br>
-<a href="betaald.php"><input type="submit" value="Betaal"></a>
-
-
+<input type="submit" value="Betaal" name="Betaal"/>&nbsp;<input type="reset" value="reset" />
+</form>
 
 </body>
 </html>

@@ -36,31 +36,18 @@
 </head>
 <?php
 include "connect.php";
+$klantnr = $_POST["klantnr"];
 ?>
 <body>
 <!-- bestellingscode-->
 
-<form method="post" action="checkoutbase.php">
+<form method="post" action="betaald.php">
     Wilt u verdergaan als klant of bezoeker? <br>
     <button>Klant</button>
+    <input type="text" value="Klantnr" name="klantnr">
     <a href="checkout-bezoeker"><button>Bezoeker</button></a>
 </form>
 <?php
-if(isset($_POST["betaal"])){
-    $sql = "INSERT INTO klant (klantnr, geslacht, voornaam, tussenvoegsel, achternaam, gbdatum, E-mail, telefoonnr, straat, huisnummer, postcode, plaats, land, wachtwoord, nieuwsbrief, factuuradres) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-    $statement = mysqli_prepare($connection, "INSERT INTO klant (klantnr, geslacht, voornaam, tussenvoegsel, achternaam, gbdatum, E-mail, telefoonnr, straat, huisnummer, postcode, plaats, land, wachtwoord, nieuwsbrief, factuuradres) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-    $statement = mysqli_prepare($connection, $sql);
-    mysqli_stmt_bind_param($statement, 'issssdsisissssbb', $klantnr, $geslacht, $voornaam, $tussenvoegsel, $achternaam, $gbdatum, $Email, $telefoonnummer, $straat, $huisnummer, $postcode, $plaats, $land, $wachtwoord, $nieuwsbrief, $factuuradres);
-    mysqli_stmt_execute($statement);
-
-
-    $result = mysqli_stmt_get_result($statement);
-    mysqli_close($connection);
-}
 ?>
 <br>
 <a href="betaald.php"><button name="betaal" class="large">Betaal</button></a>
