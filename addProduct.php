@@ -14,7 +14,7 @@ if(mysqli_num_rows($result) > 0)
         ?>
 
 
-        <form method="post" action="test.php">
+        <form method="post" action="processCart.php">
 
             <img src="<?php echo $row["photo"]; ?>">
 

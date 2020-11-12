@@ -12,4 +12,4 @@ $_SESSION[$name] = $product;
 
 print_r($product);
 
-header('location:mandfunctie.php');
+header('location:cartList.php');
